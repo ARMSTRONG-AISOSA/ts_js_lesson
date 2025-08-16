@@ -1,0 +1,33 @@
+HOW TO RUN TS
+
+Option 1: Use ts-node (best for quick testing)
+Install ts-node and typescript globally (or in your project):
+    npm install -g typescript ts-node
+
+Then run your .ts file directly:
+    ts-node tutorial.ts
+
+==========================================================
+Option 2: Compile to JavaScript first
+Compile the .ts file into .js:
+    tsc tutorial.ts
+
+This will create a tutorial.js.
+Run the compiled JS file with Node:
+    node tutorial.js
+
+==========================================================
+Option 3: Setup a tsconfig.json (for projects)
+Initialize TypeScript config:
+    tsc --init
+
+Then just run:
+    tsc
+
+It will compile all .ts files into .js in the same folder (or in dist/ if you configure it).
+⚡ Quick test for your file:
+    ts-node tutorial.ts
+
+
+should correctly print:
+Hello World
