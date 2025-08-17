@@ -1,0 +1,48 @@
+In TypeScript, an interface is a way to define the shape (structure) of an object.
+
+It tells TypeScript what properties and types an object should have, but doesn’t generate any code at runtime (it’s only for type checking).
+
+    interface Person {
+        name: string;
+        age: number;
+        isStudent: boolean;
+    }
+
+    const john: Person = {
+        name: "John Doe",
+        age: 25,
+        isStudent: true
+    };
+
+🔑 When to use interfaces
+    --When you want to define object shapes
+    --When you want type contracts for functions, classes, or APIs
+    --When you want extensibility (interfaces can be extended, merged, and reused easily)
+
+The interface Person enforces that every Person must have name, age, and isStudent of the correct types.
+
+
+==============================================================
+Interface vs Type
+
+Types are the foundation of TypeScript — they let you describe the kind of data a variable, function, or object should hold, so errors are caught before runtime.
+
+Both interface and type are used to describe the shape of data (objects, functions, etc.), but they have some differences.
+
+✅ Interface Syntax
+    interface Person {
+        name: string;
+        age: number;
+    }
+
+✅ Type Alias Syntax
+    type Person = {
+        name: string;
+        age: number;
+    };
+
+🔑 Summary
+    --interface → best for object shapes and extending
+    --type → best for unions, primitives, and flexibility
+    --In modern TypeScript, you can often use either — but interfaces are preferred for objects, and types for unions & primitives.
+

@@ -1,0 +1,39 @@
+Function Declarations are the classic way to define a named function. They are "hoisted," meaning they can be called before they are defined in the code.
+
+Syntax:
+    function functionName(parameters) {
+        // code to be executed
+    }
+
+Pros:
+Hoisting: You can call the function from anywhere in the code, even before its declaration.
+
+============================================================
+A Function Expression defines a function inside an expression. This function can be anonymous (without a name) or named. When a function expression is assigned to a variable, you can use the variable to call the function. They are not hoisted.
+
+Syntax:
+    const functionName = function(parameters) {
+        // code to be executed
+    };
+
+Pros:
+Flexibility: Can be used as arguments to other functions (callback functions) or immediately invoked.
+
+=================================================================================
+Arrow Functions were introduced in ECMAScript 2015 (ES6), arrow functions provide a shorter syntax for writing function expressions. They are particularly useful for simple, one-line functions. Like function expressions, they are not hoisted.
+
+Syntax: Version 1
+    const functionName = (parameters) => {
+        // code to be executed
+    };
+
+Syntax: Version 2: Shorter syntax for single-line functions
+    const add = (a, b) => a + b;
+
+Pros:
+Concise Syntax: Ideal for simple functions, making the code cleaner and more readable.
+
+Cons:
+Lack of this: In some cases, you might need a function to have its own this context, such as with object methods. In such cases, arrow functions are not suitable.
+
+No arguments Object: Arrow functions don't have their own arguments object, which can be a drawback when you need to access all arguments passed to a function.

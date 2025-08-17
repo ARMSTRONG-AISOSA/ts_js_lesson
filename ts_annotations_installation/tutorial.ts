@@ -1,5 +1,7 @@
 // Typescript Annotation
-// Data Type
+// Types are the foundation of TypeScript — they let you describe the kind of data a variable, function, or object should hold, so errors are caught before runtime.
+
+// Basci Type
 let phoneDigits: number = 2349009876543;
 let company: string = "Activison Blizzard";
 let isMale: boolean = true;
