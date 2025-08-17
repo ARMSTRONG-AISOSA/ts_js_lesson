@@ -85,6 +85,34 @@ const staffInfo = {
 };
 console.log(staffInfo);
 
+// Note: The Intersection can be from multiple interfaces
+
+interface BusinessPartner {
+    fullName: string;
+    creditScore: number;
+}
+
+interface UserIdentity {
+    id: number | string;
+    email: string;
+}
+
+type Employee = BusinessPartner & UserIdentity
+
+const signContact = (employee:Employee) => {
+    console.log("Contract was signed by " + employee.fullName +" with email " + employee.email );
+}
+
+// object
+const Tony: Employee = {
+    fullName: "Tony Stovic",
+    creditScore: 789,
+    id: "abc123",
+    email: "tonystovi@gmail.com",
+}
+
+signContact(Tony);
+
 
 // Function Types: you can define types for function signatures
 

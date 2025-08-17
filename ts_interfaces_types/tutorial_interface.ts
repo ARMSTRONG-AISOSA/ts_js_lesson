@@ -11,7 +11,8 @@ interface ProductTsInterface {
     readonly id: number;  //Prevents modification:
     productName: string;
     expYear: number;
-    isEdible?: boolean;
+    isEdible?: boolean; // make optional; unrequired in object field
+    isAvailable?: boolean;
 }
 
 const ProductTs: ProductTsInterface = {
@@ -20,6 +21,14 @@ const ProductTs: ProductTsInterface = {
     expYear: 2027,
     isEdible: true,
 }
+console.log(ProductTs);
+
+if (!ProductTs.isAvailable) {
+    console.log("Don't know if product is available");
+} else {
+    console.log("We know if product is available or not.");
+}
+
 
 // ====================================== Function Interface
 interface AddOp {
@@ -88,5 +97,27 @@ const Lenovo: Laptop = {
 
 console.log(Lenovo);
 
+
+
+
+// ======================================Define a function in with Interface stored in an Object Scenerio
+
+interface Salutations {
+    id: number;
+    name: string;
+    greet(msg: string): void; // returns nothing
+}
+
+const Individual: Salutations = {
+    id: 3245,
+    name: "Tony",
+    greet(msg) {
+        console.log(msg);
+    },
+};
+Individual.greet("Hello James");
+
+
+// ts-node tutorial_interface.ts
 
 // Types cannot be merged

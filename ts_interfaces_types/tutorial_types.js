@@ -56,6 +56,17 @@ const staffInfo = {
     id: 202,
 };
 console.log(staffInfo);
+const signContact = (employee) => {
+    console.log("Contract was signed by" + employee.fullName + "with email" + employee.email);
+};
+// object
+const Tony = {
+    fullName: "Tony Stovic",
+    creditScore: 789,
+    id: "abc123",
+    email: "tonystovi@gmail.com",
+};
+signContact(Tony);
 // ex .1
 const addFunc = (a, b) => {
     return a + b;

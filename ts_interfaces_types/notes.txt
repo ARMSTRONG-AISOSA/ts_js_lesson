@@ -28,6 +28,7 @@ Interface vs Type
 Types are the foundation of TypeScript — they let you describe the kind of data a variable, function, or object should hold, so errors are caught before runtime.
 
 Both interface and type are used to describe the shape of data (objects, functions, etc.), but they have some differences.
+// Types cannot be merged
 
 ✅ Interface Syntax
     interface Person {
@@ -45,4 +46,6 @@ Both interface and type are used to describe the shape of data (objects, functio
     --interface → best for object shapes and extending
     --type → best for unions, primitives, and flexibility
     --In modern TypeScript, you can often use either — but interfaces are preferred for objects, and types for unions & primitives.
+
+Union: (multiple) combined types
 

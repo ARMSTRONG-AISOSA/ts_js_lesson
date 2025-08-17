@@ -1,0 +1,22 @@
+node and ts-node are both command-line tools for running JavaScript and TypeScript code, but they serve different purposes. The key difference is that node directly executes JavaScript files, whereas ts-node executes TypeScript files by first compiling them to JavaScript in memory.
+
+Node.js (node)
+Node.js is a runtime environment that executes JavaScript code outside of a web browser. When you use the node command, you're telling the Node.js runtime to process a .js file.
+
+Function: Runs .js files.
+
+Workflow: You write your TypeScript code, then you must first compile it to plain JavaScript using the TypeScript compiler (tsc). Only then can you execute the resulting .js file with node. This two-step process is typical for production environments.
+
+Ts-Node (ts-node)
+ts-node is a command-line tool that allows you to directly execute TypeScript files. It's a "TypeScript execution environment" for Node.js.
+
+Function: Runs .ts files directly.
+
+Workflow: You run ts-node your-file.ts. Behind the scenes, ts-node uses a TypeScript compiler to automatically transpile your .ts code into JavaScript on-the-fly and then immediately executes it. This eliminates the need for a separate compilation step.
+
+Use Case
+node
+Ideal for production environments where code is pre-compiled for performance.
+
+ts-node
+Perfect for development and testing due to its simplified workflow.

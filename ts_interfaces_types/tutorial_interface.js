@@ -12,6 +12,13 @@ const ProductTs = {
     expYear: 2027,
     isEdible: true,
 };
+console.log(ProductTs);
+if (!ProductTs.isAvailable) {
+    console.log("Don't know if product is available");
+}
+else {
+    console.log("We know if product is available or not.");
+}
 const addValues = (a, b) => {
     return a + b;
 };
@@ -35,5 +42,14 @@ const Lenovo = {
     modelName: "X1 Carbon Gen 10",
 };
 console.log(Lenovo);
+const Individual = {
+    id: 3245,
+    name: "Tony",
+    greet(msg) {
+        console.log(msg);
+    },
+};
+Individual.greet("Hello James");
+// ts-node tutorial_interface.ts
 // Types cannot be merged
 //# sourceMappingURL=tutorial_interface.js.map
