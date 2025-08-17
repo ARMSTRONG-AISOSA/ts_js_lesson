@@ -1,0 +1,49 @@
+Enums vs Union Types
+✅ Enums
+    --Create a real object at runtime (except const enum).
+    --Good for when you need bidirectional mapping (like numeric enums → name lookup).
+    --Can be iterated and used in runtime logic.
+    --Can have numeric or string values.
+
+Example:
+    enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT"
+    }
+Here, Direction is an actual object in the compiled JS.
+
+
+✅ Union Types (Literal Types)
+    --Exist only at compile time (not runtime).
+    --No JavaScript code is generated.
+    --More lightweight than enums.
+    --Great for type safety without needing runtime objects.
+
+Example:
+    type Direction = "UP" | "DOWN" | "LEFT" | "RIGHT";
+
+Here, Direction is just a type — nothing exists in JS.
+
+
+Feature	            | Enum	                            | Union Type
+Runtime presence	| ✅ Yes (object exists in JS)	   | ❌ No (only at compile-time)
+Performance	        | Slightly heavier	                | Lightweight
+Reverse mapping	    | ✅ Possible (numeric enums only)  | ❌ Not possible
+Flexibility	        | More powerful	                    | Simpler
+Use case	        | API values, config, 	            | Compile-time constraints, simple choices
+                    states with runtime checks
+
+
+Which Should You Use?
+
+✅ Use Union Types if:
+    --You only need compile-time safety.
+    --You don’t need the enum object at runtime.
+    --You want lightweight code.
+
+✅ Use Enums if:
+    --You need runtime checks or iteration.
+    --You need reverse mapping (like Status[1] === "Pending").
+    --You want centralized constants with meaningful names.

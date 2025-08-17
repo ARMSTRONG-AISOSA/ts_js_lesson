@@ -1,0 +1,27 @@
+What is an Enum?
+
+An enum (short for enumeration) is a way to define a collection of related values that you can refer to by name instead of number or string.
+
+✅ When to Use Enums
+    --To represent fixed sets of values (e.g., directions, user roles, states).
+    --When you want readable names instead of magic numbers/strings.
+    --When values need to be consistent across your app.
+
+
+💡 Example: User Roles
+
+enum Role {
+  Admin = "ADMIN",
+  User = "USER",
+  Guest = "GUEST"
+}
+
+function checkAccess(role: Role) {
+  if (role === Role.Admin) {
+    console.log("Full access granted");
+  } else {
+    console.log("Limited access");
+  }
+}
+
+checkAccess(Role.User); // "Limited access"

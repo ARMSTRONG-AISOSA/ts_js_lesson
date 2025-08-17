@@ -1,0 +1,42 @@
+🟦 Interface
+    --Defines the shape of an object/class.
+    --Can be extended (inheritance).
+    --Only for objects and classes.
+    --Exists only at compile-time (not runtime).
+
+code:
+    interface Person {
+    name: string;
+    age: number;
+    }
+    const user: Person = { name: "Ben", age: 20 };
+
+🟪 Type
+    --Creates a custom type alias.
+    --Can describe objects, primitives, unions, intersections, functions.
+    --More flexible than interfaces.
+    --Compile-time only (no runtime code).
+
+code:
+    type ID = string | number;
+    type User = { id: ID; name: string };
+
+    const u: User = { id: 1, name: "Tony" };
+
+🟧 Enum
+    --Defines a set of named constants.
+    --Can be numeric or string values.
+    --Unlike interface and type, enums exist at runtime (unless const enum).
+
+code:
+    enum Role {
+    Admin = "ADMIN",
+    User = "USER",
+    Guest = "GUEST"
+    }
+    const myRole: Role = Role.Admin;
+
+🔑 Quick Summary
+    --Interface → Shape of objects/classes, extendable.
+    --Type → Alias for any type (objects, primitives, unions, etc.).
+    --Enum → Collection of constants (runtime object).

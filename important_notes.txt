@@ -23,8 +23,9 @@ Initialize TypeScript config:
 
 Then just run:
     tsc
-
 It will compile all .ts files into .js in the same folder (or in dist/ if you configure it).
+
+==========================================================
 ⚡ Quick test for your file:
     ts-node tutorial.ts
 

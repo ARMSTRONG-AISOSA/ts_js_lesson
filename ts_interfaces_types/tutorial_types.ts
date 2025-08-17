@@ -16,6 +16,13 @@ let movies: string[] = ["Mission Impossible", "The Lorax", "Max Steel"];
 // 5. Tuple (fixed length & types)
 let dog: [string, number, boolean] = ["Serbarian", 4, false];
 
+
+
+// ---------------------------------------------------------
+
+
+
+
 // 6. Any (disables type checking - use sparingly ⚠️)
 let randomValue: any = "Hello World";
 randomValue = 42;

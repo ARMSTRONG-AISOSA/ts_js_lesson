@@ -1,0 +1,9 @@
+To transpile means to transform code from one version of a programming language to another. It's a specific type of compilation where the source and target languages are at the same level of abstraction. The term is a portmanteau of "transform" and "compile."
+______________________________________________________________
+
+How it Works
+Unlike traditional compilers that convert high-level code (like C++) into low-level code (like assembly), a transpiler converts source code written in a modern syntax into an older, but still readable, version of the same language. This is particularly common in web development.
+
+A great example is TypeScript to JavaScript. Browsers don't understand TypeScript, so a transpiler (like the TypeScript compiler, tsc) converts all the TypeScript code into plain JavaScript that can be executed by any browser or Node.js environment.
+
+The need for transpilation arises because new language features (like arrow functions or async/await in JavaScript) are often introduced before they are universally supported by all runtimes. Transpilers allow developers to use these new features immediately while ensuring their code remains compatible with older environments.

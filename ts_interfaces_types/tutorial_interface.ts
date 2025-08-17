@@ -100,7 +100,7 @@ console.log(Lenovo);
 
 
 
-// ======================================Define a function in with Interface stored in an Object Scenerio
+// ======================================Define a function in with/in Interface stored in an Object (Scenerio)
 
 interface Salutations {
     id: number;
