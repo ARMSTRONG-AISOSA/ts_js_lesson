@@ -1,0 +1,80 @@
+||
+||
+||
+Index 1.0
+Generics let you create reusable components (functions, classes, interfaces, types) that work with different data types while keeping type safety.
+
+👉 Think of them as placeholders for types or like variables for types.
+
+✅ Why Use Generics?
+    --Reusability → one function/type can handle many types.
+    --Type Safety → no accidental mismatches.
+    --Flexibility → works across functions, classes, and interfaces.
+
+💡 Quick analogy:
+Generics in TS are like containers — you can put different things inside (number, string, etc.), but the container keeps track of what’s inside so you don’t mix them up.
+
+
+-------------------------------------------------------
+Index 2.0
+Adding a Constraint
+<T extends { length: number }>
+T = generic type. | extends { length: number } = restriction.
+extends { length: number } = constraint (only types with .length).
+getLength is safe to use on strings, arrays, or custom objects, but not on numbers/booleans.
+
+This means: T must be a type that has a property length of type number.
+So now TS guarantees:
+✅ arg.length exists and is a number.
+
+
+Think of extends { length: number } as saying:\
+👉 "I don’t care what type you give me, but it must be something measurable with .length."
+
+That could be: strings, arrays, custom objects like { length: 42 }.
+
+
+-------------------------------------------------------
+Index 3.0
+Default Generic Types
+
+    function wrap<T = string>(value: T): T {
+    return value;
+    }
+
+--<T> = a placeholder type.
+--value: T = the parameter must be of type T.
+--return type T = whatever comes in is returned as the same type.
+--<= string> fallback type
+            if the function call doesn’t provide a type explicitly, use string by default.
+
+    wrap(123); // number
+    wrap<boolean>(true); // boolean || Explicit Type Override
+
+
+
+-------------------------------------------------------
+🔹Call with no argument (if allowed)
+
+If you defined it like this:
+    function wrap<T = string>(value?: T): T | undefined {
+        return value;
+    }
+
+Then:
+wrap(); // defaults to string | undefined
+
+
+
+-------------------------------------------------------
+🔹Real-world Analogy
+
+Think of it like default parameters for functions, but for types.
+
+For example:
+    function greet(name: string = "Guest") {
+        console.log("Hello " + name);
+    }
+
+If you don’t pass a name → "Guest".
+If you don’t pass a type → "string".
