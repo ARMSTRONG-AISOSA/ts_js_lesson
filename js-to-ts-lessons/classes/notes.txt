@@ -1,0 +1,25 @@
+Index 1.0
+In the line `this.item = item`, **`this.item`** refers to a **property** of the specific object being created, while **`item`** refers to the **value** that is passed into the constructor.
+
+//Object Syntax
+const objectName = {
+  key1: value1,
+  key2: value2,
+  // ... more key-value pairs
+  keyN: valueN
+};
+
+const product2 = {
+    item: Jeans,
+    price: 13500,
+}
+---
+
+### Breakdown
+
+* **`this`**: In the context of the `constructor`, `this` is a special keyword that refers to the new object being instantiated. When you write `new Product('Jeans', 13500)`, `this` inside the constructor becomes the new `product2` object.
+* **`.item`**: This creates or accesses a property named `item` on the new object. So, `this.item` is the name of the property you are setting on the `product2` object.
+* **`=`**: The assignment operator sets the value of the property.
+* **`item`**: This is a variable that holds the value passed into the `constructor` function as an argument. In your example, when you create `new Product('Jeans', 13500)`, the value `'Jeans'` is passed to the `item` parameter.
+
+So, the entire line `this.item = item;` means: "Take the value that was passed into the constructor (e.g., `'Jeans'`) and assign it to the `item` property of this new object (`product2`)." This gives the newly created object its own unique state.
