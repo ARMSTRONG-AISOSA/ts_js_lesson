@@ -5,6 +5,7 @@ console.log("It works");
 class Product {
 
     // The constructor method
+    // Check @ Index 1.0 -notes.txt
     constructor(item, price) {
         this.item = item;
         this.price = price;

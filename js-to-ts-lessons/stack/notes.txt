@@ -1,0 +1,12 @@
+Index 1.0
+The line this.items = []; in the StackClass constructor initializes a property on the new object being created.
+
+Here's a breakdown:
+
+this: "this" refers to the specific object that is being created by the StackClass. For example, if you were to write const myStack = new StackClass();, the this keyword inside the constructor would refer to myStack.
+
+.items: This is a property name. The line this.items = []; creates a new property on the myStack object named items.
+
+= []: This is the assignment operator, which sets the value of the items property. The value it's being set to is an empty array ([]).
+
+In simple terms, this.items = []; creates an empty array and attaches it to the newly created StackClass object. This array is where all the elements of the stack will be stored. It's the foundation of the stack's data structure, ready to be filled with items using methods like push() and emptied with pop().
