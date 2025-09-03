@@ -1,0 +1,123 @@
+Index 1.0 
+The `sort()` array method rearranges the elements of an array in a specific order, either ascending or descending. Like `reverse()`, this method also modifies the original array **in place**.
+
+### The Default Behavior: Sorting as Strings
+This is the most important thing to understand about `sort()`. By default, `sort()` treats all elements as **strings** and sorts them based on their UTF-16 code unit values. This can lead to unexpected results when sorting numbers.
+
+**Example: The Pitfall with Numbers**
+    ```javascript
+    const numbers = [25, 100, 5, 50, 10];
+    numbers.sort();
+
+    console.log(numbers);
+    // Output: [10, 100, 25, 5, 50]
+
+This happens because `sort()` converted the numbers to strings and compared them character by character.
+
+
+### Correct Sorting with a "Compare Function"
+To sort numbers (or objects) correctly, you must provide a **compare function** as an argument to `sort()`. This function takes two arguments, `a` and `b`, and returns a value that determines their order.
+
+  * `return a - b;` (or a negative value) sorts in **ascending** order. (1, 2, 3)
+  * `return b - a;` (or a positive value) sorts in **descending** order.
+  * `return 0;` means the order of `a` and `b` doesn't change.
+
+**Example: Sorting Numbers Correctly**
+
+```javascript
+const numbers = [25, 100, 5, 50, 10];
+
+// Ascending sort
+numbers.sort((a, b) => a - b);
+console.log("Ascending:", numbers);
+// Output: [5, 10, 25, 50, 100]
+
+// Descending sort
+numbers.sort((a, b) => b - a);
+console.log("Descending:", numbers);
+// Output: [100, 50, 25, 10, 5]
+```
+
+Index 2.0
+### Sorting an Array of Objects
+The compare function is also essential for sorting arrays of objects by a specific property.
+
+**Example: Sorting by a property**
+
+```javascript
+const users = [
+  { name: 'John', age: 30 },
+  { name: 'Jane', age: 25 },
+  { name: 'Peter', age: 35 }
+];
+
+// Sort users by age in ascending order
+users.sort((a, b) => a.age - b.age);
+console.log(users);
+/* Output:
+[
+  { name: 'Jane', age: 25 },
+  { name: 'John', age: 30 },
+  { name: 'Peter', age: 35 }
+]
+*/
+```
+
+### Key Takeaways
+  * `sort()` modifies the original array.
+  * By default, it sorts elements as strings, which can be problematic for numbers.
+  * Always use a **compare function** to sort numbers or objects correctly.
+  * The `(a, b) => a - b` pattern is a common and efficient way to sort numbers in ascending order.
+
+
+
+
+
+
+
+Index 3.0
+Your code has an issue in the sort method's compare function. You are attempting to subtract one string from another (a.name - b.name), but this is an invalid operation. While this works for numbers, it will result in NaN (Not a Number) when applied to strings and will not correctly sort the array.
+
+To sort an array of objects by a string property, you need to use a compare function that returns a negative, zero, or positive value based on the alphabetical order of the names. The most robust way to do this is with the localeCompare() method.
+
+Here is the debugged code:
+
+JavaScript
+
+// Array Objects
+const userObjs = [
+    { name: "John", age: 21},
+    { name: "Jane", age: 30},
+    { name: "Doakes", age: 27},
+    { name: "Xavier", age: 24},
+];
+
+// Name ascending sort using localeCompare()
+// a.name.localeCompare(b.name) returns:
+// - a negative value if a.name comes before b.name
+// - a positive value if a.name comes after b.name
+// - 0 if they are the same
+userObjs.sort((a, b) => a.name.localeCompare(b.name));
+console.log(userObjs);
+
+// Expected Output:
+/*
+[
+  { name: 'Doakes', age: 27 },
+  { name: 'Jane', age: 30 },
+  { name: 'John', age: 21 },
+  { name: 'Xavier', age: 24 }
+]
+*/
+Explanation of the Fix
+The Problem: The expression a.name - b.name is for comparing numbers. JavaScript converts the strings to numbers, resulting in an invalid subtraction that produces NaN. The sort() method, seeing NaN values, fails to sort correctly.
+
+The Solution: The localeCompare() method is the standard and correct way to compare two strings in JavaScript. It returns an integer that is perfect for use within a sort() compare function.
+
+a.name.localeCompare(b.name) returns a negative number if a.name comes before b.name alphabetically, which tells sort() to place a before b.
+
+It returns a positive number if a.name comes after b.name, telling sort() to place a after b.
+
+It returns 0 if they are equal.
+
+This approach ensures the names are sorted correctly and is a best practice for string-based sorting.
