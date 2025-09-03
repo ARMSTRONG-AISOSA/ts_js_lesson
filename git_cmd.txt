@@ -1,0 +1,25 @@
+// ==============
+Repository Setup:
+bashgit init          # Initialize a new repository
+git clone <url>   # Clone an existing repository
+
+// ==============
+git status - Always know where you are
+git add . - Stage your changes
+git commit -m "message" - Save your work
+git push - Share your changes
+git pull - Get latest updates
+
+// ==============
+Quick Status & Info
+bashgit status        # Most used command - shows current state
+git log --oneline # Quick history view
+git branch        # See which branch you're on
+
+
+// ==============
+Remote Operations
+bashgit remote -v     # Show remote repositories
+git fetch         # Fetch from remote (doesn't merge)
+git push origin <branch>  # Push specific branch
+git pull origin <branch>  # Pull specific branch
