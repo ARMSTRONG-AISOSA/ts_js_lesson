@@ -30,7 +30,7 @@ console.log("\n\n\n");
 
 
 // Array Objects
-userObjs = [
+const userObjs = [
     { name: "John", age: 21},
     { name: "Jane", age: 30},
     { name: "Doakes", age: 27},
