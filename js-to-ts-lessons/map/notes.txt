@@ -1,0 +1,143 @@
+Index 1.0
+The map() array method allows you to transform every element in an array and return a new array containing the results. The original array remains unchanged.
+
+How it Works
+The map() method calls a function for each element in an array. This function is often called a "callback function" because it "calls back" to the original method. The result of each function call becomes an element in the new array.
+
+The basic syntax is array.map(callbackFunction).
+
+The callback function usually takes three arguments, though you often only need the first one:
+    --"currentValue": The current element being processed in the array.
+    --"index" (optional): The index of the current element.
+    --"array" (optional): The array map() was called upon.
+
+Example: Transforming Numbers
+A simple use of map() is to perform a mathematical operation on every element. Let's say you have an array of numbers and you want to double each one.
+JavaScript
+    const numbers = [1, 2, 3, 4, 5];
+    const doubledNumbers = numbers.map(number => number * 2);
+
+    console.log(doubledNumbers);
+    // Output: [2, 4, 6, 8, 10]
+
+    console.log(numbers);
+    // Output: [1, 2, 3, 4, 5] - The original array is untouched.
+
+Example: Transforming Objects
+map() is incredibly useful for transforming an array of objects. Let's say you have an array of user objects and you only need an array of their names.
+JavaScript
+    const users = [
+    { id: 1, name: 'John', role: 'developer' },
+    { id: 2, name: 'Jane', role: 'designer' },
+    { id: 3, name: 'Peter', role: 'manager' }
+    ];
+
+    const userNames = users.map(user => user.name);
+
+    console.log(userNames);
+    // Output: ['John', 'Jane', 'Peter']
+
+Why map() is preferred over a for loop
+Before map(), you would have to use a for loop to achieve the same result.
+JavaScript
+    const numbers = [1, 2, 3, 4, 5];
+    const doubledNumbers = [];
+
+    for (let i = 0; i < numbers.length; i++) {
+    doubledNumbers.push(numbers[i] * 2);
+    }
+
+    console.log(doubledNumbers);
+    // Output: [2, 4, 6, 8, 10]
+
+While this works, map() is generally considered better because:
+    --It's more concise: It reduces the amount of code needed.
+    --It's more readable: The intent of the code is clearer. map() explicitly tells you that you are creating a new array by transforming each element.
+    --It's a functional approach: It avoids side effects by not mutating the original array, which is a key principle of functional programming and leads to more predictable and bug-free code.
+
+In summary, map() is the go-to method for creating a new, transformed array without altering the original. It's a fundamental concept for clean and efficient JavaScript development.
+
+
+
+Index 2.0
+That line of code is using **object destructuring** in JavaScript.
+    const { ability, finishingMove } = abilities[index];
+
+### Step by step:
+1. `abilities[index]`
+   * Looks up the object at the current position in the `abilities` array.
+   * Example: if `index === 0`, then
+     abilities[0] = { ability: 'Dragon Slayer', finishingMove: 'Dragon Roar' }
+
+2. `{ ability, finishingMove } = abilities[index]`
+   * This is **destructuring assignment**.
+   * It pulls out the properties `ability` and `finishingMove` from that object and assigns them to new variables with the same names.
+
+3. After this line runs, you’ll have two standalone variables in scope:
+   ability = "Dragon Slayer"
+   finishingMove = "Dragon Roar"
+
+So it’s basically a shorthand for writing:
+```js
+const ability = abilities[index].ability;
+const finishingMove = abilities[index].finishingMove;
+
+**rename** the destructured variables for example
+    const { ability: hunterAbility, finishingMove: finalMove } = abilities[index];
+
+
+
+Index 3.0
+The **`?.`** is called the **optional chaining operator** in TypeScript (and JavaScript).
+    const ability: string | undefined = abilities[index]?.ability;
+    const finishingMove: string | undefined = abilities[index]?.finishingMove;
+
+✅ What it does
+* It safely tries to access a property (`ability`, `finishingMove`) from `abilities[index]`.
+* If `abilities[index]` is **`null`** or **`undefined`**, it **stops** and just returns `undefined` instead of throwing an error.
+
+🔍 Without `?.`
+    const ability = abilities[index].ability;
+
+If `abilities[index]` didn’t exist (e.g., you asked for `abilities[10]` when the array only has 5 items), you’d get an error:
+    TypeError: Cannot read properties of undefined (reading 'ability')
+
+
+🔍 With `?.`
+    const ability = abilities[index]?.ability;
+
+* If `abilities[index]` exists → it gives you the value of `.ability`.
+* If `abilities[index]` doesn’t exist → it safely returns `undefined`.
+
+So in your code, it ensures that even if `hunters` has **more items than `abilities`**, your app won’t crash. Instead, `ability` and `finishingMove` will just be `undefined`.
+
+
+👉 Example:
+    const arr = [{ ability: 'Fire' }]; //Array of Objects
+
+    console.log(arr[0]?.ability); // "Fire"
+    console.log(arr[1]?.ability); // undefined (no crash!)
+
+You could combine **optional chaining with default values** (using `??` or `||`) so that, for missing abilities, you could assign something like `"Unknown Ability"` instead of `undefined`?
+
+If the value is undefined, you can combine it with either:
+
+--Nullish coalescing (??) → only falls back if the value is null or undefined.
+--Logical OR (||) → falls back if the value is falsy (undefined, null, 0, '', false).
+
+🟢 Using ?? (recommended here)
+const ability: string = abilities[index]?.ability ?? "Unknown Ability";
+const finishingMove: string = abilities[index]?.finishingMove ?? "Unknown Finisher";
+
+
+--If abilities[index] exists → you get the real value.
+--If it doesn’t exist → you get "Unknown Ability" or "Unknown Finisher".
+
+
+
+🟠 Using ||
+const ability: string = abilities[index]?.ability || "Unknown Ability";
+const finishingMove: string = abilities[index]?.finishingMove || "Unknown Finisher";
+
+
+⚠️ Difference: || will also replace values like '' (empty string) or 0.
