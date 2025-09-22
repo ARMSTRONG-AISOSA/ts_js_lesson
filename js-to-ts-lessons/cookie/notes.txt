@@ -1,0 +1,62 @@
+
+### **What are Cookies?**
+A **cookie** is a small piece of data that a server sends to a user's web browser. The browser may then store it and send it back with the next request to the same server. Cookies are primarily used to:
+
+  * **Session Management:** Keeping a user logged in.
+  * **Personalization:** Remembering user preferences, like language or theme settings.
+  * **Tracking:** Recording and analyzing user behavior.
+
+Cookies are stored as **simple text strings**, which makes them easy to create and read but also means they can be a security risk if not handled carefully.
+
+-----
+
+### **How to Use Cookies**
+In JavaScript, you can manage cookies using the `document.cookie` property. It acts as both a getter and a setter, but it has some peculiar behavior.
+
+#### **1. Setting a Cookie**
+You set a cookie by assigning a string to `document.cookie`. The format for this string is `key=value; expires=date; path=path;`.
+
+```javascript
+document.cookie = "username=John Doe; expires=Fri, 31 Dec 2025 23:59:59 GMT; path=/";
+```
+
+  * **`username=John Doe`**: This is the required `key=value` pair.
+  * **`expires=...`**: This is the expiration date in GMT format. If omitted, the cookie is a **session cookie** and will be deleted when the browser closes.
+  * **`path=/`**: This specifies the URL path for which the cookie is valid. The default is the current page's path.
+
+**Important:** Setting a new cookie with the same key will **overwrite** the old one.
+
+
+#### **2. Getting a Cookie**
+Reading cookies is trickier. `document.cookie` returns **a single string** containing all accessible cookies for the current document, separated by semicolons and spaces.
+
+```javascript
+const allCookies = document.cookie;
+console.log(allCookies);
+// Output could be: "cookie1=value1; cookie2=value2; username=John Doe"
+```
+
+To get a specific cookie's value, you need to **parse this string** manually. A common approach is to split the string by `;` and then loop through the array to find the desired key.
+
+
+#### **3. Deleting a Cookie**
+You can't "delete" a cookie directly. Instead, you **overwrite it with an expiration date in the past**.
+
+```javascript
+document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+```
+
+By setting the `expires` date to a time that has already passed, you instruct the browser to immediately remove the cookie.
+
+-----
+
+### **Limitations and Security**
+  * **Size Limit:** Each cookie is typically limited to around **4 KB**. There's also a limit to the number of cookies per domain.
+
+  * **Security:** Cookies are sent with every request, so they can be intercepted. They are also vulnerable to **Cross-Site Scripting (XSS)** and **Cross-Site Request Forgery (CSRF)** attacks.
+
+  * **`HttpOnly` Flag:** Cookies set with the `HttpOnly` flag cannot be accessed or manipulated by JavaScript. This is a crucial security measure to prevent XSS attacks from stealing sensitive information like session IDs.
+  
+  * **`Secure` Flag:** The `Secure` flag ensures the cookie is only sent over HTTPS connections, protecting it from being read by unauthorized parties during transmission.
+
+For most modern web development, it's often better to use more secure and robust storage options like **`localStorage`** or **`sessionStorage`** for non-sensitive data. However, cookies are still essential for server-side functionalities like authentication.

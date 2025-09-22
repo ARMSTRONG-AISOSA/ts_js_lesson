@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Javascript -->
+     <script src="./cookies.js" defer></script>
+     <script src="./formScript.js" defer></script>
+
+     <!-- Css -->
+      <link rel="stylesheet" href="./style.css">
+
+    <title>Cookies</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Cookies</h1>
+        
+        <form action="#">
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- First name -->
+                <div class="input-label">
+                    <label for="firstName">First name:</label>
+                    <input id="firstName" type="text">
+                </div>
+
+                <!-- Last name -->
+                <div class="input-label">
+                    <label for="lastName">Last name:</label>
+                    <input id="lastName" type="text">
+                </div>
+            </div>
+
+            <div>
+                <button id="submitBtn">Submit</button>
+                <button id="getCookieBtn">Get Names Cookies</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
