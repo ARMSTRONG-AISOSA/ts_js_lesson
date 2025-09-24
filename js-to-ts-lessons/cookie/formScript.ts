@@ -1,3 +1,12 @@
+// 1. Type Assertions for DOM Elements
+// In JavaScript, document.querySelector returns a generic Element or null. TypeScript requires you to be more specific. Here, type assertion is used to tell TypeScript exactly what kind of element is being selected:
+
+// document.querySelector<HTMLInputElement>("#firstName") indicates that the element is an <input> field, which has a .value property.
+
+// document.querySelector<HTMLButtonElement>("#submitBtn") indicates that the element is a <button>, which is the type of element that triggers a click event.
+
+// This prevents errors when you try to access properties like .value that don't exist on a generic Element type.
+
 const firstName = document.querySelector<HTMLInputElement>("#firstName");
 const lastName = document.querySelector<HTMLInputElement>("#lastName");
 const submitBtn = document.querySelector<HTMLButtonElement>("#submitBtn");
