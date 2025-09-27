@@ -1,0 +1,39 @@
+## What is localStorage?
+**localStorage** is a web storage API that allows websites and web applications to store **key-value pairs** in a web browser with no expiration date. This means the data persists even after the browser is closed and reopened. It's a simple way to store small amounts of data locally on the client-side.
+
+-----
+
+## How it Works
+localStorage is part of the **Web Storage API**, along with **sessionStorage**. The key difference is that sessionStorage data is cleared when the page session ends, while localStorage data remains until it is explicitly cleared.
+
+  * **Key-value pairs:** Data is stored as pairs of strings. Both the key and the value must be strings. If you want to store other data types (like numbers or objects), you must first convert them to strings using `JSON.stringify()`. When you retrieve the data, you can convert it back using `JSON.parse()`.
+
+  * **Size limit:** Most browsers limit localStorage to around 5-10 MB per domain. This makes it unsuitable for storing large amounts of data, like images or extensive databases.
+
+  * **Domain-specific:** Data stored in localStorage is **scoped to the domain** that created it. This means `example.com` can't access the data stored by `another-site.com`. This is a crucial security feature.
+
+-----
+
+## Common Methods
+localStorage provides a simple set of methods to interact with the stored data.
+1.  **`localStorage.setItem(key, value)`**: Stores a key-value pair.
+    Check code @ localStorage.js
+
+2.  **`localStorage.getItem(key)`**: Retrieves the value for a given key.
+    Check code @ localStorage.js
+
+3.  **`localStorage.removeItem(key)`**: Deletes a specific key-value pair.
+    Check code @ localStorage.js
+
+4.  **`localStorage.clear()`**: Deletes all key-value pairs from localStorage for the current domain.
+    Check code @ localStorage.js
+
+-----
+
+## Example with an Object
+Since localStorage only stores strings, you need to use `JSON.stringify()` and `JSON.parse()` to handle objects.
+    Check code @ localStorage.js ==> Object Lessons
+
+// Convert the object to a JSON string before storing
+
+// Retrieve the data, which is a string

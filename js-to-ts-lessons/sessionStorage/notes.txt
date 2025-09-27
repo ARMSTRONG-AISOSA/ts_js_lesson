@@ -1,0 +1,47 @@
+## What is sessionStorage?
+**sessionStorage** is a web storage API that allows web applications to store **key-value pairs** in a web browser, similar to `localStorage`.
+
+However, the key defining characteristic of `sessionStorage` is its **session-based expiration.**
+  * **Data Scope:** Data is stored and remains available only for the **duration of the current tab or window's session.**
+  * **Expiration:** The data is **cleared** automatically when the **browser tab or window is closed**, or when the user explicitly clears the data.
+  * **Isolation:** Data is isolated per origin (domain, protocol, and port) AND per tab. If a user opens two different tabs to the same website, they will have two separate, independent `sessionStorage` containers.
+
+-----
+## sessionStorage vs. localStorage
+It's helpful to compare `sessionStorage` to its sibling, `localStorage`:
+
+| Feature            | `sessionStorage`                                  | `localStorage`
+| **Persistence**    | **Clears when the browser tab/window is closed.** | **Persists forever** until explicitly cleared by the user or code.
+| **Scope**          | Isolated to the specific **tab** that created it. | Shared across **all tabs and windows** for the same origin.
+| **Data Format**    | Key-value pairs (must be strings).                | Key-value pairs (must be strings).
+| **Capacity**       | Typically 5-10 MB per origin.                     | Typically 5-10 MB per origin.
+
+**When to use `sessionStorage`:**
+  * Storing a user's progress on a multi-step form.
+  * Temporarily holding shopping cart data for the current session.
+  * Storing non-sensitive UI state (e.g., whether a sidebar is open or closed).
+
+-----
+## Common Methods
+`sessionStorage` uses the exact same API methods as `localStorage`.
+
+1.  **`sessionStorage.setItem(key, value)`**: Stores a key-value pair.
+    check code @ sessionStorage.js
+
+2.  **`sessionStorage.getItem(key)`**: Retrieves the value for a given key.
+    check code @ sessionStorage.js
+
+3.  **`sessionStorage.removeItem(key)`**: Deletes a specific key-value pair.
+    check code @ sessionStorage.js
+
+4.  **`sessionStorage.clear()`**: Deletes all key-value pairs from the current session's storage.
+    check code @ sessionStorage.js
+
+-----
+## Example with an Object (Requires JSON)
+Since `sessionStorage` only stores strings, you must use the `JSON.stringify()` and `JSON.parse()` methods to handle objects and arrays.
+    check code @ sessionStorage.js => object
+
+// --- Step 1: Storing the Object ---
+// --- Step 2: Retrieving the Object ---
+// --- Step 3: Convert the string back to a JavaScript object ---
