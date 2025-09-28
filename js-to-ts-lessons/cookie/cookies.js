@@ -5,6 +5,7 @@
 
 // PS: Use console for this lesson
 
+
 // Check if enabled
 console.log("\nCheck Browser if cookies are enabled:");
 console.log(navigator.cookieEnabled);
@@ -12,6 +13,8 @@ console.log(navigator.cookieEnabled);
 
 
 // =========================== 1. Setting a Cookie
+// Syntax: document.cookie = "name=value; expires=UTC; path=/";
+
 // document.cookie = "fictionalCharacter=Reed Richards; expires=Sun, 1 January 2030 12:00:00 UTC; path=/";
 document.cookie = "fictionalCharacter1=Dracula Tepes; expires=Sun, 1 January 2030 12:00:00 UTC; path=/";
 document.cookie = "fictionalCharacter2=Sonic Hedgehog; expires=Mon, 2 January 2030 12:00:00 UTC; path=/";
@@ -76,4 +79,5 @@ function deleteCookie(name) {
 
 // Delete Function call
 deleteCookie("phone");
+
 

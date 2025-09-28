@@ -1,0 +1,36 @@
+Here is a step-by-step explanation of how the loop works:
+
+### The Loop: `for (const cookie of cookies)`
+This is an enhanced `for...of` loop that iterates over the `cookies` array.
+  * The `cookies` array contains all the individual cookie strings that were created by splitting the raw `document.cookie` string by `"; "`. For example, if `document.cookie` is `"user1=%7B...%7D; session=abc123"`, the `cookies` array will be `["user1=%7B...%7D", "session=abc123"]`.
+  * In each iteration, the variable `cookie` holds one of these cookie strings.
+
+### Inside the Loop (The Extraction):
+
+#### 1\. Splitting the Key-Value Pair:
+```javascript
+const [key, value] = cookie.split("=");
+```
+  * The `cookie` string (e.g., `"user1=%7B...%7D"`) is split at the first occurrence of the equals sign (`=`).
+  * The result is an array of two parts: the cookie name and the cookie value.
+  * **Destructuring Assignment** (`const [key, value] = ...`) is used to immediately assign the first element of the resulting array to the variable `key` and the second element to the variable `value`.
+
+
+#### 2\. Checking for a Match:
+```javascript
+if (key === name)
+```
+  * This checks if the extracted `key` (the cookie name from the loop) matches the `name` argument passed into the `getCookie2` function (the cookie you are looking for, e.g., `"user1"`).
+
+
+#### 3\. Returning the Decoded Value:
+```javascript
+return decodeURIComponent(value);
+```
+  * If a match is found (the `if` condition is true), the function immediately executes a `return`.
+  * The stored cookie value is retrieved as the `value` variable. Since the original object was saved using `encodeURIComponent()`, it must be restored using **`decodeURIComponent()`** to convert it back into the raw JSON string.
+  * Returning this value *exits* the function, and no further iterations of the loop are executed.
+
+
+### Conclusion
+The loop's purpose is to methodically search the list of available cookies. It dismantles each cookie string into a `key` and a `value`, compares the `key` to the target `name`, and immediately returns the properly decoded `value` upon finding a match. If the loop completes without finding a matching cookie name, the function returns `null` (as defined after the loop ends).
