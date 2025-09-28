@@ -1,0 +1,20 @@
+The TypeScript compiler is complaining because by default it’s compiling to ES5, which does not have Promise or async/await built in.
+
+That’s why you’re getting errors like:
+    --Cannot find global value 'Promise'
+    --'Promise' only refers to a type, but is being used as a value here.
+    --An async function or method in ES5 requires the 'Promise' constructor
+
+🔧 Fix
+You need to tell TypeScript to target a newer version of JavaScript (es2015 or later) so that it knows about Promise and async/await.
+
+Option 1: Pass options directly
+Run:
+    tsc json.ts --target es2015 --lib es2015,dom
+```
+--target es2015: compiles to modern JS with promises + async/await.
+--lib es2015,dom: adds the Promise, console, and localStorage definitions.
+
+⚡ Quick Note
+    --If you only run in Node.js, you don’t need "dom".
+    --If you run in the browser (you’re using localStorage), you must include "dom".

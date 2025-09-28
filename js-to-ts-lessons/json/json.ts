@@ -112,3 +112,152 @@ console.log(settingsFromLS);
 // When an external API sends a response, it's typically received as a text string that needs to be parsed before it can be used in your application.
 
 // Simulate a response received from an API call
+const apiResponseText: string = '{"status":"success","data":{"temperature":25,"city":"London"},"timestamp":1727341200000}';
+
+interface ApiData {
+    status: string;
+    data: { temperature: number, city: string };
+    timestamp: number;
+}
+
+// 1. Use JSON.parse() to convert the response string to a JavaScript object
+try {
+    const apiData: ApiData = JSON.parse(apiResponseText);
+
+    console.log(apiData);
+
+    console.log("Api Status: " + apiData.status);
+    console.log(`The temperature in the city of ${apiData.data.city} is ${apiData.data.temperature}°C at ${apiData.timestamp}`);
+
+    if (apiData.data.temperature > 20) {
+        console.log("It's a warm day!");
+    } else {
+        console.log("It's a cool day!");
+    }
+
+
+} catch (error) {
+    // This block handles cases where the response text is not valid JSON
+    console.error("Failed to parse JSON response:", error);
+
+}
+
+
+
+
+
+// Example 4. Simulated User Profile API Fetch
+/**
+* Simulates a successful API response from a server.
+* In a real-world scenario, the browser's fetch() API returns a response object,
+* and response.json() is what internally calls JSON.parse() on the text.
+*/
+
+interface ProfileData {
+    id: number;
+    username: string;
+    email: string;
+    subscription: string;
+    isVerified: boolean;
+}
+
+function fetchUserProfileData(userId: number): Promise<string> {
+    return new Promise((resolve) => {
+        // 1. Simulate the raw text response from the server (JSON string)
+        const jsonStingReturned: string = `{
+      "id": ${userId},
+      "username": "coder_x",
+      "email": "coder@example.com",
+      "subscription": "premium",
+      "isVerified": true
+        }`;
+
+        // 2. Simulate network delay before resolving
+        setTimeout(() => {
+            resolve(jsonStingReturned);
+        }, 500);
+    });
+}
+
+// --- Application Code ---
+async function loadAndDisplay(id: number) {
+    try {
+        const rawResponse: string = await fetchUserProfileData(id);
+        console.log("Raw response:");
+        console.log(rawResponse);
+
+        // Process the received text using JSON.parse()
+        const userData: ProfileData = JSON.parse(rawResponse);
+        console.log("Parsed User Data:");
+        console.log(userData);
+
+        // Log User Info
+        console.log(`The user name is ${userData.username}.`);
+        console.log(`The user email is ${userData.email}.`);
+        console.log(`The user subscription is ${userData.subscription}.`);
+        console.log(`The user account is ${userData.isVerified ? "verified" : "not verified"}.`);
+
+    } catch (error) {
+        console.error("Failed to load user data:", error);
+    }
+}
+
+loadAndDisplay(42);
+
+
+
+// Example 5. Simulated Product List API Fetch with Array Processing
+// Simulates an API call returning an array of JSON objects.
+
+interface ProductInfo {
+    sku: string;
+    name: string;
+    inStock: boolean;
+    price: number;
+}
+
+function fetchProductList(): Promise<string> {
+    return new Promise((resolve) => {
+        const jsonString: string = `[
+      {"sku": "LPTOP-001", "name": "Lightweight Laptop", "inStock": true, "price": 999.99},
+      {"sku": "KBD-045", "name": "Mechanical Keyboard", "inStock": false, "price": 120.00},
+      {"sku": "MSE-112", "name": "Wireless Mouse", "inStock": true, "price": 45.50}
+    ]`;
+
+
+        setTimeout(() => {
+            resolve(jsonString);
+        }, 600);
+
+    })
+}
+
+
+// --- Application Code ---
+async function loadAndDisplayProducts() {
+    try {
+        const rawData: string = await fetchProductList();
+        console.log("Raw data:");
+        console.log(rawData);
+
+        const parsedProductData: ProductInfo[] = JSON.parse(rawData);
+        console.log("Parsed product data:");
+        console.log(parsedProductData);
+
+        console.log("\n--- Product Stock Status ---");
+        // Use Array methods (like forEach) to process the JavaScript array
+        parsedProductData.forEach((product) => {
+            console.log(`The ${product.name}, priced at $${product.price.toFixed(2)}, is ${product.inStock ? "in" : "not in"} stock.`);
+        });
+
+
+    } catch (error) {
+        console.error("The rawData was not parsed: ", error);
+
+    }
+}
+
+// Function call
+loadAndDisplayProducts();
+
+
