@@ -1,0 +1,91 @@
+`npm init -y`
+
+---
+## 1. What is `npm init`?
+
+`npm` = Node Package Manager (comes with Node.js).
+* `npm init` = a command to initialize a new Node.js project.
+* It creates a `package.json` file in your current directory.
+
+The `package.json` file is like the “manifest” of your project.
+It tells Node, npm, and other tools things like:
+
+* Project name, version, and description
+* Which file is the entry point (default is `index.js`)
+* Which packages your project depends on (`dependencies`)
+* Which tools you use for development (`devDependencies`)
+* Scripts to run tasks (`npm run start`, `npm run build`, etc.)
+
+---
+## 2. Running just `npm init`
+If you type only:
+```bash
+npm init
+```
+
+It starts an `interactive setup wizard` asking:
+
+* `name:` → project name (default: folder name)
+* `version:` → starting version (default: `1.0.0`)
+* `description:` → what your project does
+* `entry point:` → main file (default: `index.js`)
+* `test command:` → how to run tests
+* `git repository:` → GitHub repo link
+* `keywords:` → search keywords
+* `author:` → your name
+* `license:` → license type (default: `ISC`)
+
+At the end, it generates a `package.json` file with your answers.
+
+---
+## 3. What does `-y` do?
+The `-y` (or `--yes`) flag means “answer yes to everything and accept all defaults”.
+
+So instead of answering each question manually, `npm init -y` instantly creates a `package.json` with default values:
+
+```json
+{
+  "name": "current-folder-name",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+---
+## 4. When do you use `npm init -y`?
+
+* When you just want to get started quickly without answering questions.
+* Usually the first thing you do in a new Node/TypeScript/React project.
+* After this, you can edit `package.json` manually (e.g., add `"type": "module"`).
+
+---
+## 5. Example workflow
+Let’s say you’re starting a TypeScript project:
+
+```bash
+mkdir my-ts-project
+cd my-ts-project
+npm init -y
+```
+
+This creates `package.json`. Then you might add dependencies:
+
+```bash
+npm install --save-dev typescript
+npx tsc --init
+```
+
+Now you have:
+* `package.json` → manages project metadata & dependencies
+* `tsconfig.json` → manages TypeScript compiler options
+
+---
+✅ Summary:
+`npm init -y` is a shortcut to quickly bootstrap a Node.js project with a default `package.json`. Instead of answering setup questions, it accepts defaults and lets you edit the file later.

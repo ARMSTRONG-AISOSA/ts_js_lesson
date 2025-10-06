@@ -1,0 +1,93 @@
+**JSON Server** is a simple and lightweight Node.js package that allows frontend developers to create a full fake **REST API** with **zero coding** in seconds. Its primary purpose is to mock a backend API for rapid prototyping, testing, and developing frontend applications without waiting for the actual backend to be built.
+
+It's essentially a mock server that reads a simple JSON file and instantly exposes RESTful endpoints based on the keys in that file.
+-----
+
+### How JSON Server Works
+1.  **Installation (via npm):** You typically install it globally or as a development dependency in your project:
+    ```bash
+    npm install -g json-server
+    # OR
+    npm install --save-dev json-server
+    ```
+
+2.  **The Database File (`db.json`):** You create a simple JSON file that acts as your mock database. The top-level keys in this file become your API endpoints.
+    **Example `db.json`:**
+    ```json
+    {
+      "posts": [
+        { "id": 1, "title": "JSON Server is awesome", "author": "Typicode" },
+        { "id": 2, "title": "Mocking data made easy", "author": "Alice" }
+      ],
+      "profile": { "name": "Bob" }
+    }
+    ```
+
+3.  **Starting the Server:** You run a single command to start the server and tell it to watch your JSON file:
+    ```bash
+    json-server --watch db.json
+    ```
+
+4.  **Instant API Endpoints:** Once started (usually at `http://localhost:3000`), the following routes are automatically generated and fully functional:
+
+      * `GET /posts` (Get all posts)
+      * `GET /posts/1` (Get a single post by ID)
+      * `POST /posts` (Create a new post)
+      * `PUT /posts/1` (Update a post by replacing it entirely)
+      * `PATCH /posts/1` (Update a post by modifying specific fields)
+      * `DELETE /posts/1` (Delete a post)
+      * `GET /profile` (Get the profile object)
+
+### Key Features
+  * **Full CRUD Operations:** It automatically supports Create, Read, Update, and Delete operations for all defined resources using standard HTTP methods (POST, GET, PUT, PATCH, DELETE).
+  * **Persistent Data:** When you make a POST, PUT, PATCH, or DELETE request, JSON Server automatically updates your `db.json` file. This means the data persists across server restarts.
+  * **Filtering and Querying:** It supports query parameters for advanced requests, allowing you to:
+      * **Filter:** `GET /posts?author=Alice`
+      * **Sort:** `GET /posts?_sort=title&_order=asc`
+      * **Paginate:** `GET /posts?_page=1&_limit=10`
+      * **Full-text Search:** `GET /posts?q=awesome`
+  * **Custom Routes:** You can define a separate `routes.json` file to create custom endpoints that map to your existing resources (e.g., mapping `/api/articles` to `/posts`).
+  * **Delay Simulation:** The `--delay` option allows you to simulate network latency, which is essential for testing loading states in your frontend application.
+
+### Why It's Essential for Frontend Developers
+JSON Server is an invaluable tool because it:
+
+1.  **Decouples Development:** The frontend team can start building the UI, making API calls, and handling data without waiting for the backend team to finalize the server logic.
+2.  **Rapid Prototyping:** You can spin up a realistic API mock in minutes to test application architecture and demonstrate functionality.
+3.  **Testing:** It's great for unit and integration testing of frontend services, allowing you to simulate different response scenarios (e.g., empty arrays, specific data structures) reliably.
+
+This video provides a complete tutorial on setting up and using JSON Server for frontend development. [Up & Running with JSON Server (Part 1)](https://www.youtube.com/watch?v=mAqYJF-yxO8)
+
+
+// Define Port
+json-server --watch db.json --port 4000
+
+// Define Sever Delay
+json-server --watch db.json --delay 2000
+
+// Define Client Delay
+
+#1: Using setTimeout (Traditional Method)
+setTimeout(() => {
+  // This code will execute after 3 seconds
+  const message = "The delayed function executed!";
+  document.getElementById('status').textContent = message;
+  console.log(message);
+}, 3000); // 3000 milliseconds = 3 seconds
+
+#2: Utility function to create a delay
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+#3: Function that uses the delay (must be 'async')
+async function showMessageWithPause() {
+  console.log("Starting process...");
+
+  // Pause execution for 1.5 seconds
+  await delay(1500);
+
+  // This code only runs after the 1.5-second pause
+  console.log("1.5 seconds have passed. Showing final message.");
+  document.getElementById('status').textContent = 'Process finished.';
+}

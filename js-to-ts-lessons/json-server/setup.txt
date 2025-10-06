@@ -1,0 +1,5 @@
+#1
+live-server
+
+#2
+json-server --watch ./data/db.json --port 3005

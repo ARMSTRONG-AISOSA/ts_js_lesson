@@ -1,3 +1,5 @@
+### Promise Error
+
 The TypeScript compiler is complaining because by default it’s compiling to ES5, which does not have Promise or async/await built in.
 
 That’s why you’re getting errors like:
@@ -18,3 +20,47 @@ Run:
 ⚡ Quick Note
     --If you only run in Node.js, you don’t need "dom".
     --If you run in the browser (you’re using localStorage), you must include "dom".
+
+
+
+
+
+### Module 'export' errors
+
+A top-level 'export' modifier cannot be used on value declarations in a CommonJS module when 'verbatimModuleSyntax' is enabled.
+
+That error means your TypeScript config (tsconfig.json) is using verbatimModuleSyntax: true, which enforces stricter ECMAScript module (ESM) syntax rules.
+
+In this mode:
+You can’t use export directly on variable/function declarations in CommonJS.
+
+FIX:
+Make your project ESM (recommended if you want modern syntax)
+
+code: json
+    {
+    "type": "module"
+    }
+
+Since you installed TypeScript globally on your Linux PC, you probably don’t have a local project setup yet — which means there might not be a package.json at all in your project folder.
+
+STEPS
+1. Check if package.json exists
+
+2. Create package.json if missing
+code: bash
+    npm init -y
+
+3. Enable ESM in your project
+Edit package.json and add:
+code: json
+    {
+    "name": "my-project",
+    "version": "1.0.0",
+    "type": "module",   // 👈 add this line
+    "main": "index.js",
+    "license": "ISC"
+    }
+
+This tells Node + TS: “treat my .ts/.js files as ES modules.”
+Now your export { ... } syntax will work.

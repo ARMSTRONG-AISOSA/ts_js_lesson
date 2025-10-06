@@ -32,3 +32,13 @@ It will compile all .ts files into .js in the same folder (or in dist/ if you co
 
 should correctly print:
 Hello World
+
+
+==========================================================
+Option 5: Watch Mode (auto-recompile on save)
+Instead of running npx tsc every time, you can use:
+code: bash
+    (npx) tsc --watch
+
+This keeps the compiler running and recompiles when files change.
+Done in the folder with the .ts files
