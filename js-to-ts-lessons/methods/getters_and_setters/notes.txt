@@ -1,0 +1,98 @@
+JavaScript Getters(read) and Setters(write) are special methods that allow you to define how an object's property is accessed and modified. They are known as **accessor properties**, as opposed to standard **data properties**.
+
+They allow you to treat a function like a property, providing a layer of abstraction and control over data access.
+
+### 1\. Getters (The `get` Keyword)
+A **Getter** is a method that gets (retrieves) the value of a property. It's invoked automatically when you access the property's name.
+  * **Syntax:** Use the `get` keyword before the function name.
+  * **Parameters:** It must have exactly **zero** parameters.
+  * **Return Value:** It must return a value.
+
+#### Use Cases for Getters:
+1.  **Computed Properties:** To calculate a value on the fly based on other properties, without having to call a separate method.
+2.  **Encapsulation/Data Protection:** To return a different value than the underlying stored data (e.g., to return a "read-only" version or apply formatting).
+
+**Example (Computed Property in a Class):**
+```javascript
+class Person {
+  constructor(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  // Getter for fullName
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+const user = new Person("John", "Smith");
+// Accessing it like a property, not a method!
+❌ user.fullName()
+console.log(user.fullName); // Output: John Smith
+```
+
+
+### 2\. Setters (The `set` Keyword)
+A **Setter** is a method that sets (changes) the value of a property. It's invoked automatically when you try to assign a value to the property's name.
+  * **Syntax:** Use the `set` keyword before the function name.
+  * **Parameters:** It must have exactly **one** parameter, which represents the value being assigned.
+
+#### Use Cases for Setters:
+1.  **Data Validation:** To check the new value before storing it in the object's actual property.
+2.  **Updating Multiple Properties:** To update an object's internal state when a single "pseudo-property" is set.
+3.  **Encapsulation/Private Fields:** To control how a private or internal property is modified.
+
+**Example (Data Validation and Updating):**
+```javascript
+class User {
+  constructor() {
+    this._age = 0; // Conventionally, a leading underscore indicates an internal property
+  }
+
+  // Setter for age
+  set age(value) {
+    if (value < 0) {
+      console.error("Age cannot be negative!");
+      return; // Stop the assignment
+    }
+    this._age = value; // Store the valid value
+  }
+
+  // Getter for age (to read the validated value)
+  get age() {
+    return this._age;
+  }
+}
+
+const person = new User();
+person.age = 30;    // Calls the setter, _age is now 30
+person.age = -5;    // Calls the setter, logs an error and _age remains 30
+console.log(person.age); // Output: 30
+```
+
+
+### Defining Getters and Setters on Existing Objects (Lesson for a different time)
+You can also use the static method `Object.defineProperty()` to add accessor properties to an existing object:
+
+```javascript
+const myObject = {
+  _value: 0
+};
+
+Object.defineProperty(myObject, 'data', {
+  get() {
+    return this._value + 1;
+  },
+  set(newValue) {
+    this._value = newValue / 2;
+  },
+  // Accessor properties are not enumerable and not configurable by default
+  enumerable: true, 
+  configurable: true 
+});
+
+myObject.data = 10;
+console.log(myObject._value); // Output: 5
+console.log(myObject.data);   // Output: 6 (5 + 1)
+```

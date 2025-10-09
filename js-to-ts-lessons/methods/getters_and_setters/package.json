@@ -1,0 +1,12 @@
+{
+  "name": "getters_and_setters",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "getters and setters folder lesson",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Armstrong",
+  "license": "ISC"
+}
