@@ -1,0 +1,1 @@
+A bug where things go haywire if the ids of each post in numbers and not string as i wrote code for.

@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="./styles.css">
 
   <!-- Javascript -->
-  <script src="js-ts/index.js" defer></script>
-
+  <script src="./js-ts/index.js" defer></script>
 
   <title>JSON Server</title>
 </head>
@@ -16,8 +15,32 @@
 <body>
 
   <nav>
-    <h1>All Blogs</h1>
-    <a href="/create.html">Add a new blog</a>
+    <div class="upperNav">
+      <h1>All Blogs</h1>
+
+      <div class="upperNav-left">
+        <!-- Sort Container -->
+        <div class="sort-container">
+          <label for="sort">Sort by:</label>
+          <select name="sort" id="sort">
+            <option value="none">None</option>
+            <option value="likes_desc">Most Liked</option>
+            <option value="likes_asc">Least Liked</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+        </div>
+
+        <!-- Add New Blog -->
+        <a href="./html/create.html">Add a new blog</a>
+      </div>
+    </div>
+
+    <div class="lowerNav">
+      <form class="searchForm">
+        <input type="text" class="searchInput" name="searchInput" placeholder="Search blogs">
+      </form>
+    </div>
   </nav>
 
   <div class="blogs">

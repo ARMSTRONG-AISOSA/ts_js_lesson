@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Css -->
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Javascript -->
+    <script src="../js-ts/update.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <h1>Update Post Page</h1>
+    </nav>
+
+    <h2>Update Blog Info</h2>
+
+    <form id="blogUpdateForm">
+        <label for="titleUpdate">Title:</label>
+        <input type="text" name="titleUpdate" id="titleUpdate" required placeholder="Blog title update">
+
+
+        <label for="authorUpdate">Author:</label>
+        <input type="text" name="authorUpdate" id="authorUpdate" required placeholder="Blog author update">
+
+        <label for="categoryUpdate">Category:</label>
+        <input type="text" name="categoryUpdate" id="categoryUpdate" required placeholder="ex. technology">
+
+        <label for="tagsUpdate">Tags (comma separated):</label>
+        <input type="text" name="tagsUpdate" id="tagsUpdate" placeholder="tech, ai, news" required>
+
+        <label for="contentUpdate">Body Content:</label>
+        <textarea name="contentUpdate" id="contentUpdate" required placeholder="Blog body content update"></textarea>
+
+        <div class="updatePageBtn">
+            <button type="submit">Update Post</button>
+            <button id="returnHome">Return Home</button>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -21,7 +21,7 @@ const numArr2 = [7, 78, 31, 3, 19, 91];
 numArr2.sort((a, b) => a - b)
 console.log(numArr2);
 
-// Numbers decending
+// Numbers descending
 const numArr3 = [7, 78, 31, 3, 19, 91];
 numArr3.sort((a, b) => b - a)
 console.log(numArr3);
@@ -44,7 +44,7 @@ console.log(userObjs);
 userObjs.sort((a, b) => a.age - b.age);
 console.log(userObjs);
 
-// Age decending sort
+// Age descending sort
 userObjs.sort((a, b) => b.age - a.age);
 console.log(userObjs);
 
@@ -53,7 +53,7 @@ console.log(userObjs);
 userObjs.sort((a, b) => a.name.localeCompare(b.name));
 console.log(userObjs);
 
-// Name decending sort
+// Name descending sort
 userObjs.sort((a, b) => b.name.localeCompare(a.name));
 console.log(userObjs);
 

@@ -1,34 +1,15 @@
-// as HTMLElement → tells TypeScript this element is a general HTML container (like a <div>).
-// as HTMLSelectElement → specifies that #sort is a <select> dropdown.
-// as HTMLFormElement → ensures TypeScript knows .searchForm supports .submit, .reset(), etc.
+const blogsIndexContainer = document.querySelector('.blogs');
+const sortSelect = document.querySelector('#sort');
+const searchForm = document.querySelector('.searchForm');
 
-// | null : If you want null-safety checks to avoid runtime errors:
-
-const blogsContainer = document.querySelector('.blogs') as HTMLElement | null;
-const sortSelectTs = document.querySelector('#sort') as HTMLSelectElement | null;
-const searchFormTs = document.querySelector('.searchForm') as HTMLFormElement | null;
-
-let homeURLIndexTs: string = "http://127.0.0.1:8080/";
-let baseURLIndexTs: string = "http://localhost:3005/posts/";
-
-// Post Interface
-interface Post {
-    id: string;
-    title: string;
-    category: string;
-    author: string;
-    content: string;
-    likes: number;
-    datePublished: string;
-    postUpdatedLast?: string;
-    tags?: string[];
-}
+let homeURLIndex = "http://127.0.0.1:8080/";
+let baseURLIndex = "http://localhost:3005/posts/";
 
 
-async function fetchPostsTs(sortType: string = "none", term: string = ""): Promise<Post[] | void> {
+async function fetchPosts(sortType = "none", term = "") {
 
     // Always restart from a clean baseUrl and prevent baseURL mutation
-    let url: string = baseURLIndexTs;
+    let urlIndex = baseURLIndex;
 
     // // doesn't seem to work for me
     //     if (term) {
@@ -36,24 +17,24 @@ async function fetchPostsTs(sortType: string = "none", term: string = ""): Promi
     //         console.log("search ran!: " + url);
     //     }
 
-    let template: string = ''; // hold ui element and content
+    let template = ''; // hold ui element and content
 
     try {
         // fetch returns a Response object, not raw JSON
-        const response = await fetch(url);
+        const response = await fetch(urlIndex);
         // console.log("Raw Response:");
         // console.log(response);
 
         // Convert Response body to JSON
-        let posts: Post[] = await response.json();
+        let posts = await response.json();
         // console.log("Parsed data");
         console.log(posts);
 
         console.log("Sort type:", sortType);
 
         // Handle empty post list
-        if (posts.length === 0 && blogsContainer !== null) {
-            blogsContainer.innerHTML = `<p class="noPost">No posts found!</p>`;
+        if (posts.length === 0) {
+            blogsIndexContainer.innerHTML = `<p class="noPost">No posts found!</p>`;
             return;
         }
 
@@ -69,12 +50,11 @@ async function fetchPostsTs(sortType: string = "none", term: string = ""): Promi
                 break;
 
             case "newest":
-                // Strict date sorting — uses .getTime() to compare properly.
-                posts.sort((a, b) => new Date(b.datePublished).getTime() - new Date(a.datePublished).getTime());
+                posts.sort((a, b) => new Date(b.datePublished) - new Date(a.datePublished));
                 break;
 
             case "oldest":
-                posts.sort((a, b) => new Date(a.datePublished).getTime() - new Date(b.datePublished).getTime());
+                posts.sort((a, b) => new Date(a.datePublished) - new Date(b.datePublished));
                 break;
 
             default:
@@ -83,29 +63,25 @@ async function fetchPostsTs(sortType: string = "none", term: string = ""): Promi
         }
 
         // Alternative Manual search
-        // Search Logic
-        let sortedPosts: Post[] = posts;
         if (term) {
 
             console.log("Search term: " + term); //log search term
 
-            const searchTerm: string = term.toLowerCase(); //convert search term to lowercase for better match cases 
+            const searchTerm = term.toLowerCase(); //convert search term to lowercase for better match cases 
 
             // If returns any that is true for at leasta singleconditions within
-            sortedPosts = sortedPosts.filter((post) =>
+            posts = posts.filter((post) =>
                 post.title.toLowerCase().includes(searchTerm) || //if title includes search term
                 post.author.toLowerCase().includes(searchTerm) || //if author includes search term
                 post.category.toLowerCase().includes(searchTerm) || //if category includes search term
                 post.content.toLowerCase().includes(searchTerm) //if content includes search term
             );
 
-            console.log("Filtered locally:", sortedPosts); // log filtered posts
+            console.log("Filtered locally:", posts); // log filtered posts
 
         }
 
-        let filteredPosts: Post[] = sortedPosts;
-
-        filteredPosts.forEach(post => {
+        posts.forEach(post => {
 
             // Tags
             // Array.isArray(post.tags): check if post.tags is present and if its an array
@@ -139,39 +115,30 @@ async function fetchPostsTs(sortType: string = "none", term: string = ""): Promi
         `;
         });
 
-        // Inject into DOM
-        if (blogsContainer !== null) {
-            blogsContainer.innerHTML = template;
-        }
+        blogsIndexContainer.innerHTML = template;
 
 
-        // Get all buttons listeners
-        const deleteBtns = document.querySelectorAll('.deleteBtn') as NodeListOf<HTMLButtonElement>;
-        // Attach a delete event(function) to each button
+        // Get all buttons
+        const deleteBtns = document.querySelectorAll('.deleteBtn');
+        // Attach a delete event(function) to each button 
         deleteBtns.forEach((deleteBtn) => {
-            deleteBtn.addEventListener('click', async (event: PointerEvent | MouseEvent): Promise<void> => {
+            deleteBtn.addEventListener('click', async (event) => {
                 // Check Notes below
-                const target = event.target as HTMLButtonElement;
-                const postId = target.getAttribute('data-id');
-
-                // if falsy in value ex. null, undefined
-                if (!postId) {
-                    return;
-                }
+                const postId = event.target.getAttribute('data-id');
 
                 // Confirm delete intention
                 const confirmDelete = confirm("Are you sure you want to delete this post?");
 
                 // Delete function if true
                 if (confirmDelete) {
-                    await deletePostTs(postId);
+                    await deletePost(postId);
                 };
             })
         })
 
 
 
-        return filteredPosts;
+        return posts;
 
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -180,10 +147,10 @@ async function fetchPostsTs(sortType: string = "none", term: string = ""): Promi
 }
 
 // Delete Post
-async function deletePostTs(postId: string): Promise<void> {
+async function deletePost(postId) {
     try {
 
-        const response = await fetch(baseURLIndexTs + postId, {
+        const response = await fetch(baseURLIndex + postId, {
             method: 'DELETE'
         });
 
@@ -191,7 +158,7 @@ async function deletePostTs(postId: string): Promise<void> {
         if (response.ok) {
             alert("Post deleted successfully!");
 
-            await fetchPostsTs(); // Reload list after delete with default arguements
+            await fetchPosts(); // Reload list after delete with default arguements
         } else {
             console.error("Failed to delete post:", response.status);
         }
@@ -202,33 +169,26 @@ async function deletePostTs(postId: string): Promise<void> {
 }
 
 // Listen for dropdown change
-if (sortSelectTs !== null) {
-    sortSelectTs.addEventListener("change", (event) => {
-        const target = event.target as HTMLSelectElement;
-        const sortType = target.value;
-        fetchPostsTs(sortType, "");
-    })
-}
+sortSelect.addEventListener("change", (event) => {
+    const sortType = event.target.value;
+    fetchPosts(sortType, "");
+})
 
 // Search Listner: listen to form
-if (searchFormTs !== null) {
-    searchFormTs.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const searchInput = document.querySelector('.searchInput') as HTMLInputElement | null;
-        if (searchInput !== null) {
-            const term = searchInput.value.trim();// get search term and remove white space from input field
-            fetchPostsTs("none", term);
-        }
-    })
-}
+searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const term = document.querySelector('.searchInput').value.trim(); // get search term and remove white space from input field
+    fetchPosts("none", term);
+    // document.querySelector('.searchInput').value = ""; // clear input field after search
+})
 
 
 // Initial Fetch
-// fetchPostsTs() is async so you await it in DOMContentLoaded
-window.addEventListener("DOMContentLoaded", async (): Promise<void> => {
-    const posts = await fetchPostsTs(); //sortType = "none", term=""
+// fetchPosts() is async so you await it in DOMContentLoaded
+window.addEventListener("DOMContentLoaded", async () => {
+    const posts = await fetchPosts(); //sortType = "none", term=""
     // console.log(posts);
+
 });
 
 
@@ -254,13 +214,3 @@ window.addEventListener("DOMContentLoaded", async (): Promise<void> => {
 
 // console.log(btn.getAttribute("data-id"));   // "101"
 // console.log(btn.getAttribute("data-role")); // "admin"
-
-
-
-// What is this about
-//         const deleteBtns = document.querySelectorAll('.deleteBtn') as NodeListOf<HTMLButtonElement>;
-
-// deleteBtn.addEventListener('click', async (event: PointerEvent | MouseEvent) => {
-// Check Notes below
-// const target = event.target as HTMLButtonElement;
-// const postId = target.getAttribute('data-id');

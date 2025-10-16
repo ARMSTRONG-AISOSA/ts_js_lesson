@@ -3,3 +3,6 @@ live-server
 
 #2
 json-server --watch ./data/db.json --port 3005
+
+#3
+ tsc create.ts details.ts index.ts update.ts --target es2015 --lib es2015,dom
