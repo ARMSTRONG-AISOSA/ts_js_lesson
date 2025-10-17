@@ -4,7 +4,7 @@
 const fruits = ['apple', 'banana', 'mango', 'orange', 'grape'];
 
 // Slicing from index 1 to 3 (exclusive)
-const someFruits = fruits.slice(1 , 4);
+const someFruits = fruits.slice(1, 4);
 console.log("\nsomeFruits");
 console.log(someFruits);
 

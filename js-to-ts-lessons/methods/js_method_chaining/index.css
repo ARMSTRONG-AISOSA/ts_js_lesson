@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 0px;
+}
+
+.btnSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.btnStyles {
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 26px;
+    transition: all 0.5s;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.btnStyles:hover {
+    cursor: pointer;
+    background-color: yellow;
+    color: black;
+}
