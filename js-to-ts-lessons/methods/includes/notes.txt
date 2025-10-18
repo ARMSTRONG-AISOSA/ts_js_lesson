@@ -1,0 +1,20 @@
+`includes()` is a JavaScript method that determines whether an array or a string contains a specified element or substring. It returns **`true`** if the value is found, and **`false`** if it's not. It's a simple, readable way to check for the presence of a value.
+
+-----
+### How it Works with Arrays
+
+The `includes()` method for arrays checks if an element exists in the array. It's case-sensitive and handles different data types correctly.
+```Check code
+
+`includes()` can also take a second, optional argument: `fromIndex`. This tells the method to start searching from a specific index.
+```Check code
+
+
+-----
+### How it Works with Strings
+
+When used on a string, `includes()` checks if a specific substring exists within it.
+```Check code
+
+Like the array method, the string `includes()` also accepts a second `position` argument to specify where to begin the search.
+```Check code
