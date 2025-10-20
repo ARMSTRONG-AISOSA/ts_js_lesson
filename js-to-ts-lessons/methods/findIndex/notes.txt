@@ -1,0 +1,59 @@
+`findIndex()` is an array method in JavaScript that returns the **index of the first element** in an array that satisfies a provided testing function. If no element passes the test, it returns `-1`. It's a useful method when you need to find the position of a specific element based on a condition, rather than just checking if it exists.
+
+-----
+
+### How It Works
+
+`findIndex()` takes a **callback function** as its argument. This function is executed for each element in the array and should return a **truthy** or **falsy** value.
+
+The callback function receives three arguments:
+
+1.  **`element`**: The current element being processed.
+2.  **`index`**: The index of the current element.
+3.  **`array`**: The array `findIndex()` was called on.
+
+The `findIndex()` method stops executing the callback as soon as it finds an element for which the callback returns a `true` value.
+
+**Example 1: Finding an object in an array**
+
+```javascript
+const users = [
+  { id: 101, name: 'Alice' },
+  { id: 102, name: 'Bob' },
+  { id: 103, name: 'Charlie' }
+];
+
+const bobIndex = users.findIndex(user => user.name === 'Bob');
+
+console.log(bobIndex); // Output: 1
+```
+
+Here, `findIndex()` iterates through the `users` array. The callback function checks if the `name` property of the `user` object is equal to `'Bob'`. When it finds the element at index 1, the condition is met, and `findIndex()` returns that index.
+
+**Example 2: No match found**
+
+If the condition is never met for any element in the array, `findIndex()` returns `-1`.
+
+```javascript
+const people = [
+  { id: 1, name: 'Dave' },
+  { id: 2, name: 'Eve' }
+];
+
+const personIndex = people.findIndex(person => person.name === 'Frank');
+
+console.log(personIndex); // Output: -1
+```
+
+-----
+
+### `findIndex()` vs. Other Array Methods
+
+| Method | Purpose | Return Value | Key Difference |
+| :--- | :--- | :--- | :--- |
+| **`findIndex()`** | Returns the **index** of the first matching element. | `number` (index) or `-1` | Best for getting the position of an item. |
+| **`find()`** | Returns the **element itself** that matches. | The element or `undefined` | Best for getting the item's data. |
+| **`indexOf()`** | Returns the **index** of a specific value. | `number` (index) or `-1` | Uses strict equality (`===`), so it can't find an object by its property. |
+| **`includes()`** | Checks for **existence**. | `boolean` (`true`/`false`) | Best for a simple true/false check. |
+
+Choose `findIndex()` when you specifically need the **index** of the element to perform a subsequent operation, like updating or removing an item at that position.
