@@ -1,0 +1,31 @@
+`forEach()` is a method in JavaScript that executes a provided function once for each element in an array. It's a clean and modern way to iterate over arrays, offering an alternative to traditional `for` or `for...of` loops.
+
+### How it Works
+The `forEach()` method is called on an array and takes a **callback function** as its argument. This callback function is executed for every element in the array.
+
+The callback function can accept up to three arguments:
+    1.  **`currentValue`**: The current element being processed in the array (most common).
+    2.  **`index`**: The index of the current element.
+    3.  **`array`**: The array that `forEach()` was called upon.
+
+**Example 1:**
+```check code in index.js
+
+// Example 2: Using forEach with the currentValue and index
+```check code in index.js
+
+### Key Characteristics
+--No return value**: `forEach()` **always returns `undefined`**. You cannot use it to create a new array or return a value from the loop. For that, you should use methods like `map()`, `filter()`, or `reduce()`.
+--Immutable**: It does **not mutate the original array**.
+--Read-only**: You can't `break` or `continue` the loop from within a `forEach()` callback. If you need to stop the iteration early, a `for` loop is a better choice.
+--Performance**: For simple iterations, its performance is comparable to a `for` loop, but it can be slightly slower due to the overhead of a function call for each element. This difference is usually negligible for most applications.
+
+### `forEach()` vs. Other Array Methods
+| Method | Purpose | Return Value | Mutates Original Array? | Can `break`? |
+| **`forEach()`** | To execute a function for each element | `undefined` | No | No |
+| **`map()`** | To create a **new array** by transforming each element | A new array | No | No |
+| **`filter()`** | To create a **new array** with elements that pass a test | A new array | No | No |
+| **`for` loop** | To iterate with fine-grained control | N/A | Yes/No (depends on code) | Yes |
+| **`for...of`** | To iterate over iterable objects (including arrays) | N/A | Yes/No (depends on code) | Yes |
+
+`forEach()` is best used when you simply need to perform an action for each element, like logging it to the console or calling a side-effect function, without creating a new array.
