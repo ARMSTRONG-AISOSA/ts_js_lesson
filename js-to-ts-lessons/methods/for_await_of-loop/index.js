@@ -36,24 +36,20 @@ function delayedValue(value, ms) {
 
 // An array containing Promises
 const promiseArray = [
-    delayedValue('A', 1500), // takes 1.5 secs
+    delayedValue('A', 500), // takes .5 secs
     delayedValue('B', 1000), // takes 1 sec
     delayedValue('C', 500), // takes .5 secs
     delayedValue('D', 2500), // takes 2.5 sec
 ];
 
-function processInput(value, ms) {
-    setTimeout(() => {
-        console.log(`${value}`);
-    }, ms);
-}
-
 async function processPromises() {
 
     // Note: Using await makes the next line wait until the previous one finishes.
-    await processInput("Loading Program Processing...", 300);
+    // PS: the setTime still goes on to count thou for the other lines it seems.
+    console.log(await delayedValue('Loading Program Processing...', 300));
 
-    await processInput("Starting Sequential Processing...", 500);
+    // await processInput("Starting Sequential Processing...", 500);
+    console.log(await delayedValue('Starting Sequential Processing...', 500));
 
 
     // The loop pauses for the time taken by each Promise to resolve
@@ -61,13 +57,15 @@ async function processPromises() {
         console.log(`Processing resolved result: ${result}`);
     }
 
-    await processInput("Finalizing...", 400);
+
+    console.log(await delayedValue("Finalizing...", 1000));
 
     console.log(`All processing finished`);
+    console.log(`shuting program`);
 }
 
 // Function call
-processPromises();
+// processPromises();
 
 
 
@@ -86,8 +84,41 @@ processPromises();
 // Signals the generator is “done”.
 // Ignores the rest of the URLs.
 async function* dataFetcher(urls) {
-    for ( const url of urls) {
+    for (const url of urls) {
         console.log(`\n Attempting to fetch data from: ${url}`);
-        
+
+        // Simulate an API call returning a Promise
+        const dataPromise = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(`Data for ${url}`);
+            }, 500)
+        });
+
+        // instead of resolving the promise at once 
+        // The for await...of loop will pause and await this yielded Promise
+        yield dataPromise;
     }
 }
+
+async function getSequentialData() {
+    // Array of endpoints url paths
+    const apiEndpoints = ['/users', '/products', '/orders', '/prices'];
+
+    // Function generator call with an array of end points
+    const fetcher = dataFetcher(apiEndpoints);
+
+    // console.log(fetcher);
+
+
+    for await (const data of fetcher) {
+        // 'data' is the resolved string (e.g., "Data for /users")
+        // consumed one after another (bacically => fetcher.next())
+        console.log(`Successfully received and processed: ${data}`);
+
+    }
+}
+
+// async function call
+getSequentialData();
+
+
