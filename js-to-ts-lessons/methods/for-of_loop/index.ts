@@ -113,3 +113,4 @@ for (const [email, role] of userRoles) {
 
 }
 
+// tsc index.ts --target es2015 --lib es2015,dom

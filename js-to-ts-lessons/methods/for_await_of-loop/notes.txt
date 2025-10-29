@@ -1,0 +1,92 @@
+The **`for await...of`** loop is an advanced JavaScript construct used to iterate over **asynchronous iterable objects**, such as streams, or when dealing with iterables (like arrays) that contain **Promises**.
+
+It was introduced in **ES2018** and provides a clean, synchronous-looking syntax for consuming asynchronous data sources.
+
+-----
+
+## Key Function and Syntax
+
+The primary role of `for await...of` is to pause execution at each iteration, wait for the asynchronous data (Promise) to resolve, and then provide the resolved **value** before moving to the next iteration.
+
+### Syntax
+
+```javascript
+async function consumeAsyncData() {
+  for await (const element of asyncIterable) {
+    // 'element' is the resolved value of the Promise for the current iteration
+    console.log(element);
+  }
+}
+```
+
+### Requirements
+
+1.  It can **only** be used inside an **`async`** function.
+2.  The object being iterated over (`asyncIterable`) must be an **Async Iterable** (i.e., it must have a `[Symbol.asyncIterator]` method).
+
+-----
+
+## How It Works 💡
+
+The most common use case is iterating over an array of Promises, where you need to process them sequentially.
+
+### Example: Processing Promises Sequentially
+
+In this common pattern, we want to ensure each Promise is fully resolved before starting the next one.
+
+```javascript
+// A utility function that returns a Promise which resolves after a delay
+function delayedValue(value, ms) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log(`Resolved: ${value}`);
+      resolve(value);
+    }, ms);
+  });
+}
+
+// An array containing Promises
+const promiseArray = [
+  delayedValue('A', 2000), // Takes 2 seconds
+  delayedValue('B', 1000), // Takes 1 second
+  delayedValue('C', 500)   // Takes 0.5 seconds
+];
+
+async function processPromises() {
+  console.log("Starting Sequential Processing...");
+  
+  // The loop pauses for the time taken by each Promise to resolve
+  for await (const result of promiseArray) {
+    console.log(`Processing resolved result: ${result}`);
+  }
+
+  console.log("All processing finished.");
+}
+
+processPromises();
+```
+
+**Execution Flow (Total time $\approx$ 3.5 seconds):**
+
+1.  Loop starts with Promise 'A', pauses for 2s.
+2.  Promise 'A' resolves, loop prints **"Processing resolved result: A"**.
+3.  Loop moves to Promise 'B', pauses for 1s.
+4.  Promise 'B' resolves, loop prints **"Processing resolved result: B"**.
+5.  Loop moves to Promise 'C', pauses for 0.5s.
+6.  Promise 'C' resolves, loop prints **"Processing resolved result: C"**.
+7.  Final message prints.
+
+-----
+
+## `for await...of` vs. `for...of`
+
+| Feature | `for await...of` | `for...of` |
+| :--- | :--- | :--- |
+| **Data Source** | **Async Iterable** (e.g., Node.js Streams, an Array of Promises). | **Iterable** (e.g., Array, String, Map, Set). |
+| **Execution** | **Stops and awaits** the resolution of each item's Promise. | Synchronously processes the value of each item. |
+| **Context** | **Must** be inside an `async` function. | Can be used in any function context. |
+| **Value** | Returns the **resolved value** of the Promise. | Returns the raw value of the element. |
+
+### Note on Iterating Arrays
+
+When iterating over a regular array using `for await...of`, the loop behaves exactly like a regular `for...of` loop if the array elements are not Promises. However, if the array contains Promises (as in the example above), the `for await...of` loop is the clean, readable way to await them sequentially.

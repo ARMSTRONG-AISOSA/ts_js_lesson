@@ -1,0 +1,97 @@
+Both `yield` and `return` are **ways of sending values out of a function**,
+but they work very differently in **how** and **when** those values are sent.
+
+---
+### 🧠 1️⃣ `return` — one-time output, ends the function
+When you use `return`, you send **one value once**, and the function **ends immediately**.
+
+
+### 🧠 2️⃣ `yield` — pauses the function, returns control, then resumes later
+
+`yield` is used **inside generator functions** (those with `function*`).
+
+Each `yield`:
+* **Sends out a value**
+* **Pauses** the function execution
+* **Allows it to be resumed** later from where it left off
+
+Example:
+```js
+function* getNumbers() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const iterator = getNumbers();
+console.log(iterator.next()); // { value: 1, done: false }
+console.log(iterator.next()); // { value: 2, done: false }
+console.log(iterator.next()); // { value: 3, done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
+```
+
+So `yield` lets your function **produce multiple values over time**,
+instead of finishing after one.
+
+---
+
+### ⚙️ How this relates to your code
+
+Your example:
+
+```js
+async function* dataFetcher(urls) {
+  for (const url of urls) {
+    // ...
+    yield dataPromise; // 👈 yields the Promise each time
+  }
+}
+```
+
+* The function returns an **async generator**, not a Promise.
+* Each `yield` produces a Promise that resolves later.
+* The `for await...of` loop in `getSequentialData()` consumes each value one by one **as they resolve**.
+
+---
+
+### 🔍 If you used `return` instead
+
+Let’s say you changed your code to this:
+
+```js
+async function* dataFetcher(urls) {
+  for (const url of urls) {
+    const dataPromise = new Promise(resolve => {
+      setTimeout(() => resolve(`Data for ${url}`), 500);
+    });
+    return dataPromise; // ❌ returns only once, stops the loop
+  }
+}
+```
+
+Then you’d only get **the first item**, because `return`:
+
+* Ends the function right away.
+* Signals the generator is “done”.
+* Ignores the rest of the URLs.
+
+---
+
+### 🔄 So in summary:
+
+| Feature          | `yield`                           | `return`          |
+| ---------------- | --------------------------------- | ----------------- |
+| Sends value      | Yes (can send many times)         | Yes (only once)   |
+| Pauses function  | ✅ Yes                             | ❌ No              |
+| Can resume later | ✅ Yes                             | ❌ No              |
+| Used in          | Generator / async generator       | Any function      |
+| Typical use case | Streaming, incremental processing | Final result only |
+
+---
+yeild 
+// | Behavior                          | Description                           |
+// | --------------------------------- | ------------------------------------- |
+// | `.next()`                         | Executes generator until next `yield` |
+// | `done: false`                     | Generator still has more values       |
+// | `done: true`                      | Generator finished (no more `yield`s) |
+// | Calling `.next()` consumes values | Each call moves forward permanently   |

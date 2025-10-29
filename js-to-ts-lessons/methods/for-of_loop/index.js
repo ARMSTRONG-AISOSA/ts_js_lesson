@@ -110,6 +110,5 @@ console.log(`User Access List:`);
 // Destructure the [key, value] array into separate variables
 for (const [email, role] of userRoles) {
     console.log(`User with mail: ${email} has the role: ${role}`);
-    
 }
 
