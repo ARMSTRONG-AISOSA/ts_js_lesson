@@ -1,0 +1,50 @@
+## 🧩 What does “enumerable” mean?
+In JavaScript, **enumerable** means that a property can be **listed or looped over** — for example, by a loop like:
+    * `for...in`
+    * `Object.keys()`
+    * `Object.entries()`
+
+If a property is **enumerable**, it shows up in those loops. If it’s **non-enumerable**, it won’t.
+
+---
+### 🧠 Every property in JS has “descriptors”
+A property in JavaScript isn’t just a key–value pair — it also has **metadata**, called **property descriptors**. One of those descriptors is `enumerable`.
+
+You can see them with `Object.getOwnPropertyDescriptor()`.
+```js
+    const user = { name: "Alice" };
+    console.log(Object.getOwnPropertyDescriptor(user, "name"));
+
+Output:
+```js
+    {
+    value: "Alice",
+    writable: true,
+    enumerable: true,  // 👈 means it shows up in loops
+    configurable: true
+    }
+
+
+## 🧪 Example 1: Enumerable vs Non-enumerable
+``` Check Code
+
+## 🧭 Example 2: Built-in JS properties
+
+Many built-in object properties (like `toString`) are **non-enumerable**,
+so you don’t see them when looping over an object.
+``` Check Code
+
+
+## 🧠 Summary
+
+| Term                        | Meaning                                                                   |
+| --------------------------- | ------------------------------------------------------------------------- |
+| **Enumerable property**     | Can be listed/looped over (shows up in `for...in`, `Object.keys()`, etc.) |
+| **Non-enumerable property** | Hidden from enumeration, but still exists and can be accessed directly    |
+| **How to control it**       | Use `Object.defineProperty(obj, key, { enumerable: false })`              |
+| **Why it matters**          | Determines what shows up when you loop or inspect an object               |
+
+---
+### 🧩 TL;DR
+> **Enumerable = visible in loops.**
+> **Non-enumerable = exists, but hidden from loops.**
