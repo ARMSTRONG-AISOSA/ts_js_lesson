@@ -1,0 +1,35 @@
+#index 1
+# ❌ You cannot declare variables inside a class body like this:
+```code
+    class Cat extends Animal {
+        let animal = "cat";   // ❌ illegal
+    }
+
+This causes a **syntax error**, which stops ALL code execution 
+# ✅ Why is this wrong?
+Inside a class body, JavaScript only allows:
+    * property declarations
+    * method declarations
+    * static properties/methods
+
+But NOT:
+    *let, *const, *var
+
+# ✔️ FIX: Declare the `animal` type as a **class property**, not a `let` variable.
+simply do:
+```code
+    animal = "cat";
+
+
+
+================================================
+#index 2
+Why you can’t use animal inside super()
+
+Class field: =====> 
+                    animal = "cat";
+
+is the same as writing: =====>
+                    this.animal = "cat";
+
+Only literals or parameters can be passed to super()
