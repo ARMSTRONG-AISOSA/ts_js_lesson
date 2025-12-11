@@ -165,3 +165,29 @@ console.log(car1.revEngine());
 console.log(car2.startCar());
 
 
+// ⚙️ super in Static Methods
+// The super keyword can also be used in static methods to call the corresponding static method of the parent class.
+
+class Calculator {
+    static addition(a: number, b: number) {
+        return a + b;
+    }
+}
+
+class AdvancedCalculator extends Calculator {
+    static doubleResult(a: number, b: number) {
+        // Call the parent's static add method
+        const sum = super.addition(a, b);
+        return sum * 2; // Add new, extended logic
+    }
+}
+
+
+console.log(AdvancedCalculator.addition(2, 2));
+// Calls the subclass's static add
+// Output: 4 ==> (2 + 2)
+
+console.log(AdvancedCalculator.doubleResult(2, 2)); // Calls the superclass's/parent's class static doubleResult
+// Output: 8 ==> ((2 + 2) * 2)
+
+// The $\mathbf{super}$ keyword is fundamental to implementing proper class inheritance and method overriding in modern JavaScript.

@@ -1,0 +1,6 @@
+// static = is a keyword that defines/makes a property or method belong to the class itself (the constructor function), not to instances created with new
+
+Feature     --Instance (Normal) Members                         --Static Members
+Ownership   --Belong to a specific object created with new.     --Belong to the class itself.
+Access      --Accessed via an instance (myObject.method()).     --Accessed via the class name (MyClass.method()).
+this        --"Inside the method, this refers to the instance (myObject).   --","Inside the method, this refers to the class constructor (MyClass)."
